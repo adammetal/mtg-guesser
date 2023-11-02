@@ -1,0 +1,20 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1698313393207,
+      "tag": "0000_even_swarm",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1698931090112,
+      "tag": "0001_familiar_mantis",
+      "breakpoints": true
+    }
+  ]
+}
