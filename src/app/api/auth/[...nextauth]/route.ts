@@ -4,6 +4,7 @@ import NextAuth, { type NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 
 export const authOptions: NextAuthOptions = {
+  // @ts-expect-error
   adapter: DrizzleAdapter(db),
   providers: [
     GithubProvider({

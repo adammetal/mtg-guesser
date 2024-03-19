@@ -12,7 +12,7 @@ export const options = () => ({
     }),
     httpBatchLink({
       url,
+      transformer: SuperJSON,
     }),
   ],
-  transformer: SuperJSON,
 });

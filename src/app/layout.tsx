@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import ClientProvider from "./_trpc/ClientProvider";
+import ClientProvider from "@/trpc/ClientProvider";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Demo",
-  description: "Demo with auth",
+  title: "MTG Guesser Game",
+  description: "MTG Card Guesser Game.",
 };
 
 export default function RootLayout({
