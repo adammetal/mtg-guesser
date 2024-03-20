@@ -56,7 +56,7 @@ export default function Symbol({
         ref={domTarget}
         onClick={toggle}
         style={{ ...springs }}
-        className="bg-white p-2 cursor-pointer"
+        className="cursor-pointer"
       >
         <Image src={src} width={60} height={60} alt={name} />
       </animated.div>
