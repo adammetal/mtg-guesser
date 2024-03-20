@@ -81,12 +81,16 @@ export default function CardImage({ src }: { src: string }) {
       }}
     >
       <Image
-        placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
+        placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(745, 1040))}`}
         alt="Guess the card"
         width={745}
         height={1040}
         src={src}
         className="pointer-events-none"
+        style={{
+          width: '100%',
+          height: 'auto'
+        }}
       />
     </animated.div>
   );
