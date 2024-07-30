@@ -1,13 +1,13 @@
 "use client";
 
-import { useCallback, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { type RouterOutputs } from "../trpc/routers/_app";
+import { useCallback, useState } from "react";
 import CardImage from "./CardImage";
 import * as Symbols from "./Symbols";
 import CardDetails from "./CardDetails";
 import Cmc from "./Cmc";
 import { trpc } from "../trpc/trpcClient";
+import { useQuery } from "@tanstack/react-query";
 
 type Card = RouterOutputs["getRandomCard"];
 
@@ -25,7 +25,7 @@ export default function Card({ card }: { card: Card }) {
   const [score, setScore] = useState(0);
   const [sent, setSent] = useState(false);
   const [cmc, setCmc] = useState("");
-  const [colors, setColors] = useState<Record<string, boolean>>({
+  const [colors, setColors] = useState<{ [key: string]: boolean }>({
     r: false,
     g: false,
     u: false,
