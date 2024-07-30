@@ -8,7 +8,7 @@ export default async function Game() {
   const user = await getServerSession(authOptions);
 
   if (!user) {
-    redirect("/");
+    return redirect("/");
   }
 
   const card = await trpc.getRandomCard({ yearFrom: 2000 });
