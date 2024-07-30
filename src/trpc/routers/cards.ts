@@ -1,10 +1,22 @@
-import { z } from "zod";
+import { number, z } from "zod";
 import { procedure, router } from "../trpc";
 import { TRPCError } from "@trpc/server";
-import { ScryCard } from "@/zCard";
-import arrayEqual from "@/utils/array-equal";
 
 const BASE = "https://api.scryfall.com";
+
+type ScryCard = {
+  id: string;
+  colors: string[];
+  name: string;
+  image_uris: {
+    png: string;
+  };
+  cmc: number;
+  type_line: string;
+  oracle_text: string;
+  power?: string;
+  toughness?: string;
+};
 
 type QuizCard = {
   id: string;
@@ -16,7 +28,12 @@ type QuizCard = {
   toughness?: string;
 };
 
-
+/**
+ * Search for non colorless non land cards.
+ *
+ * @param minYear
+ * The bottom limit for the release.
+ */
 const getRandomCardFromScry = async (minYear: number): Promise<QuizCard> => {
   const url = new URL("/cards/random", BASE);
   url.searchParams.append("q", `-c:colorless -t:land year>=${minYear}`);
@@ -30,11 +47,11 @@ const getRandomCardFromScry = async (minYear: number): Promise<QuizCard> => {
   return {
     id: card.id,
     name: card.name,
+    image: card.image_uris.png,
     type: card.type_line,
     power: card.power,
     toughness: card.toughness,
-    image: card?.image_uris?.png ?? "",
-    text: card?.oracle_text ?? "",
+    text: card.oracle_text,
   };
 };
 
@@ -45,6 +62,25 @@ const getCardFromScryById = async (id: string): Promise<ScryCard> => {
   return card;
 };
 
+const arrayEquals = <T>(a: T[], b: T[]): boolean => {
+  if (a.length !== b.length) {
+    return false;
+  }
+
+  const checking = [...b];
+
+  for (const elem of a) {
+    const index = checking.indexOf(elem);
+
+    if (index === -1) {
+      return false;
+    }
+
+    checking.splice(index, 1);
+  }
+
+  return checking.length === 0;
+};
 
 const getRandomCard = procedure
   .input(z.object({ yearFrom: z.number().default(2000) }))
@@ -76,7 +112,7 @@ const scoreUserGuess = procedure
       scores++;
     }
 
-    if (arrayEqual(colors, card.colors ?? [])) {
+    if (arrayEquals(colors, card.colors)) {
       scores++;
     }
 
